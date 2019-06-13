@@ -1,0 +1,8 @@
+.venv
+.idea
+processed_celeba_small
+.ipynb_checkpoints
+*.iml
+*.csv
+/data
+/cache
