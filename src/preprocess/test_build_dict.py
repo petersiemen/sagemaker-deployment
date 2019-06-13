@@ -2,7 +2,7 @@ from .build_dict import build_dict
 from .read_imdb_data import read_imdb_data
 from .prepare_imdb_data import prepare_imdb_data
 from .preprocess_data import preprocess_data
-from .convert_and_pad import convert_and_pad_data
+from .convert_and_pad_data import convert_and_pad_data
 import os
 import pandas as pd
 

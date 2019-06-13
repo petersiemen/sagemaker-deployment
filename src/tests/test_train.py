@@ -1,14 +1,14 @@
-from .train import train
 import torch
 import torch.utils.data
 import os
 import pandas as pd
 import torch.optim as optim
-from .model import LSTMClassifier
+from ..train.model import LSTMClassifier
+from ..train.train import train
 
 
 def test_train():
-    data_dir = '../tests/data/pytorch'
+    data_dir = './data/pytorch'
 
     # Read in only the first 250 rows
     train_sample = pd.read_csv(os.path.join(data_dir, 'train.csv'), header=None, names=None, nrows=250)
@@ -30,4 +30,4 @@ def test_train():
     optimizer = optim.Adam(model.parameters())
     loss_fn = torch.nn.BCELoss()
 
-    train(model, train_sample_dl, 20, optimizer, loss_fn, device)
+    train(model, train_sample_dl, 5, optimizer, loss_fn, device)

@@ -1,7 +1,8 @@
 import pickle
 from tqdm import tqdm
 import os
-from .review_to_words import review_to_words
+
+from serve.utils import review_to_words
 
 
 def preprocess_data(data_train, data_test, labels_train, labels_test,
