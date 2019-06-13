@@ -1,10 +1,11 @@
 from ..preprocess.read_imdb_data import read_imdb_data
 from ..preprocess.prepare_imdb_data import prepare_imdb_data
-from ..preprocess.preprocess_data import  preprocess_data
+from ..preprocess.preprocess_data import preprocess_data
 from ..preprocess.build_dict import build_dict
 from ..preprocess.convert_and_pad_data import convert_and_pad_data
 import os
 import pandas as pd
+import pickle
 
 
 def test_build_dict():
@@ -21,7 +22,7 @@ def test_build_dict():
     print('\n')
 
     # removing cached preprocessed data here because
-    # os.remove('./cache/preprocessed_data.pkl')
+    os.remove('./cache/preprocessed_data.pkl')
     cache_dir = './cache'
     train_X, test_X, train_y, test_y = preprocess_data(train_X, test_X, train_y, test_y,
                                                        cache_dir=cache_dir
@@ -52,3 +53,6 @@ def test_build_dict():
     data_dir = './data/pytorch'
     pd.concat([pd.DataFrame(train_y), pd.DataFrame(train_X_len), pd.DataFrame(train_X)], axis=1) \
         .to_csv(os.path.join(data_dir, 'train.csv'), header=False, index=False)
+
+    with open(os.path.join(data_dir, 'word_dict.pkl'), "wb") as f:
+        pickle.dump(word_dict, f)

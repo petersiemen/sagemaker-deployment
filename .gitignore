@@ -6,3 +6,4 @@ processed_celeba_small
 *.csv
 /data
 /cache
+__pycache__

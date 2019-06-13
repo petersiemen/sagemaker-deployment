@@ -3,8 +3,10 @@ import torch.utils.data
 import os
 import pandas as pd
 import torch.optim as optim
-from ..train.model import LSTMClassifier
-from ..train.train import train
+from train.model import LSTMClassifier
+from train.train import train
+
+import pickle
 
 
 def test_train():
@@ -26,8 +28,42 @@ def test_train():
     print(train_sample_X)
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = LSTMClassifier(32, 100, 5000).to(device)
+
+    embedding_dim = 32
+    hidden_dim = 100
+    vocab_size = 5000
+
+    model = LSTMClassifier(embedding_dim=embedding_dim,
+                           hidden_dim=hidden_dim,
+                           vocab_size=vocab_size).to(device)
+    print(model)
+
+    with open(os.path.join(data_dir, "word_dict.pkl"), "rb") as f:
+        model.word_dict = pickle.load(f)
+
     optimizer = optim.Adam(model.parameters())
     loss_fn = torch.nn.BCELoss()
 
     train(model, train_sample_dl, 5, optimizer, loss_fn, device)
+
+    # Save the parameters used to construct the model
+    model_dir = './data/modelDir'
+
+    model_info_path = os.path.join(model_dir, 'model_info.pth')
+    with open(model_info_path, 'wb') as f:
+        model_info = {
+            'embedding_dim': embedding_dim,
+            'hidden_dim': hidden_dim,
+            'vocab_size': vocab_size,
+        }
+        torch.save(model_info, f)
+
+    # Save the word_dict
+    word_dict_path = os.path.join(model_dir, 'word_dict.pkl')
+    with open(word_dict_path, 'wb') as f:
+        pickle.dump(model.word_dict, f)
+
+    # Save the model parameters
+    model_path = os.path.join(model_dir, 'model.pth')
+    with open(model_path, 'wb') as f:
+        torch.save(model.cpu().state_dict(), f)
