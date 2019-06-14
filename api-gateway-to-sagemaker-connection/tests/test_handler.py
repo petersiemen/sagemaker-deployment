@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from hello_world import app
+from src import sentiment_analysis_func
 
 
 @pytest.fixture()
@@ -64,7 +64,7 @@ def apigw_event():
 
 def test_lambda_handler(apigw_event, mocker):
 
-    ret = app.lambda_handler(apigw_event, "")
+    ret = sentiment_analysis_func.lambda_handler(apigw_event, "")
     data = json.loads(ret["body"])
 
     assert ret["statusCode"] == 200

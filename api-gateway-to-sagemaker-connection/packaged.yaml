@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'api-gateway-to-sagemaker-connection
+
+  SAM - Sentiment analyis
+
+  '
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  SentimentAnalysisFunction:
+    Properties:
+      CodeUri: s3://acme-development-lamdba-functions/sam/sentiment-analysis/master-0-gb3af1af/95a1643e1bf9749f3d09d4a48acdcd97
+      Events:
+        HelloWorld:
+          Properties:
+            Method: post
+            Path: /sentiment
+          Type: Api
+      Handler: sentiment_analysis_func.lambda_handler
+      Runtime: python3.6
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
