@@ -11,10 +11,10 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.utils.data
 
-from model import LSTMClassifier
+from serve.model import LSTMClassifier
 from preprocess import convert_and_pad_data
 
-from utils import review_to_words, convert_and_pad
+from serve.utils import review_to_words, convert_and_pad
 
 def model_fn(model_dir):
     """Load the PyTorch model from the `model_dir` directory."""
