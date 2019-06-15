@@ -9,7 +9,7 @@ import torch
 import torch.optim as optim
 import torch.utils.data
 
-from model import LSTMClassifier
+from train.model import LSTMClassifier
 
 def model_fn(model_dir):
     """Load the PyTorch model from the `model_dir` directory."""
