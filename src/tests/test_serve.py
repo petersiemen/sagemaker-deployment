@@ -2,10 +2,12 @@ from serve.predict import model_fn
 from serve.predict import input_fn
 from serve.predict import predict_fn
 import pickle
+import os
 
+here = os.path.dirname(os.path.realpath(__file__))
 
 def test_serve():
-    model_dir = './data/modelDir'
+    model_dir = os.path.join(here, './data/modelDir')
 
     model = model_fn(model_dir)
     print(model)

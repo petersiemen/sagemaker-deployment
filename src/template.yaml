@@ -15,6 +15,7 @@ Resources:
   SageMakerExecutionRole:
     Type: "AWS::IAM::Role"
     Properties:
+      RoleName: sentiment-analysis-rnn-role
       AssumeRolePolicyDocument:
         Statement:
           - Effect: "Allow"
@@ -37,7 +38,16 @@ Resources:
                 Resource:
                   - 'arn:aws:s3:::sagemaker-eu-central-1-982023434191'
                   - 'arn:aws:s3:::sagemaker-eu-central-1-982023434191/*'
-
+        - PolicyName: SageMakerIamAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: "Allow"
+                Action:
+                  - "iam:GetRole"
+                  - "iam:GetRolePolicy"
+                  - "sts:GetCallerIdentity"
+                Resource: "*"
 
   SentimentAnalyisNotebook:
     Type: AWS::SageMaker::NotebookInstance

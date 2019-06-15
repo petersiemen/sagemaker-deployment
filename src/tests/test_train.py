@@ -8,9 +8,11 @@ from train.train import train
 
 import pickle
 
+here = os.path.dirname(os.path.realpath(__file__))
+
 
 def test_train():
-    data_dir = './data/pytorch'
+    data_dir = os.path.join(here, './data/pytorch')
 
     # Read in only the first 250 rows
     train_sample = pd.read_csv(os.path.join(data_dir, 'train.csv'), header=None, names=None, nrows=250)
@@ -47,7 +49,7 @@ def test_train():
     train(model, train_sample_dl, 5, optimizer, loss_fn, device)
 
     # Save the parameters used to construct the model
-    model_dir = './data/modelDir'
+    model_dir = os.path.join(here , './data/modelDir')
 
     model_info_path = os.path.join(model_dir, 'model_info.pth')
     with open(model_info_path, 'wb') as f:

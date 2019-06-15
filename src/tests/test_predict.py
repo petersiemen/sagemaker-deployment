@@ -3,14 +3,14 @@ from preprocess.prepare_imdb_data import prepare_imdb_data
 from preprocess.preprocess_data import preprocess_data
 from preprocess.build_dict import build_dict
 from preprocess.convert_and_pad_data import convert_and_pad_data
-import os
-import pandas as pd
+from preprocess.preprocess_data import preprocess_data
 import pickle
-import sys
+import os
 
 here = os.path.dirname(os.path.realpath(__file__))
 
-def test_build_dict():
+def test_predict():
+
     imdb_data_dir = os.path.join(here, './data/aclImdb')
     print('{}\n'.format(imdb_data_dir))
 
@@ -37,24 +37,6 @@ def test_build_dict():
 
     word_dict = build_dict(train_X)
     print(word_dict)
-    train_X, train_X_len = convert_and_pad_data(word_dict, train_X)
-    print('after convert_and_pad_data: train_X[0]:')
-    print(train_X[0])
-
-    int_to_word = {v: k for k, v in word_dict.items()}
-
-    train_X0_back_in_words = []
-    for idx in train_X[0]:
-        if idx in int_to_word:
-            train_X0_back_in_words.append(int_to_word[idx])
-        else:
-            train_X0_back_in_words.append(idx)
-
-    print(train_X0_back_in_words)
-
-    data_dir = os.path.join(here,'./data/pytorch')
-    pd.concat([pd.DataFrame(train_y), pd.DataFrame(train_X_len), pd.DataFrame(train_X)], axis=1) \
-        .to_csv(os.path.join(data_dir, 'train.csv'), header=False, index=False)
-
-    with open(os.path.join(data_dir, 'word_dict.pkl'), "wb") as f:
-        pickle.dump(word_dict, f)
+    test_X, test_X_len = convert_and_pad_data(word_dict, test_X)
+    print(test_X)
+    print(test_X_len)
