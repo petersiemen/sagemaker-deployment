@@ -3,8 +3,8 @@ import torch
 import torch.utils.data
 import numpy as np
 from serve.utils import convert_and_pad
-from serve.predict import model_fn
-from serve.model import LSTMClassifier
+from predict import model_fn
+from train.model import LSTMClassifier
 
 here = os.path.dirname(os.path.realpath(__file__))
 

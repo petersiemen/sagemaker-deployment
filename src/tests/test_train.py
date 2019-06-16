@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import torch.optim as optim
 from train.model import LSTMClassifier
-from train.train import train
+from entry_point_train import train
 
 import pickle
 

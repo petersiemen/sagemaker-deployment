@@ -11,7 +11,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.utils.data
 
-from serve.model import LSTMClassifier
+from train.model import LSTMClassifier
 from preprocess import convert_and_pad_data
 
 from serve.utils import review_to_words, convert_and_pad

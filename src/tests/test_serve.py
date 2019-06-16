@@ -1,6 +1,6 @@
-from serve.predict import model_fn
-from serve.predict import input_fn
-from serve.predict import predict_fn
+from predict import model_fn
+from predict import input_fn
+from predict import predict_fn
 import pickle
 import os
 
