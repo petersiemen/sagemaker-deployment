@@ -47,6 +47,8 @@ def model_fn(model_dir):
     print("Done loading model.")
     return model
 
+    predict_fn()
+
 def input_fn(serialized_input_data, content_type):
     print('Deserializing the input data.')
     if content_type == 'text/plain':
@@ -92,5 +94,5 @@ def predict_fn(input_data, model):
     # convert output probabilities to predicted class (0 or 1)
     pred = torch.round(output)
 
-    result = pred.numpy()
+    result = pred.detach().numpy()
     return result

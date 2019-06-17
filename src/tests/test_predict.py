@@ -4,6 +4,7 @@ import torch.utils.data
 import numpy as np
 from serve.utils import convert_and_pad
 from predict import model_fn
+from predict import predict_fn
 from train.model import LSTMClassifier
 
 here = os.path.dirname(os.path.realpath(__file__))
@@ -36,6 +37,9 @@ def test_predict():
 
     print('data (shape: {})'.format(data.shape))
     print(data)
+    input_data = 'The simplest pleasures in life are the best, and this film is one of them. Combining a rather basic storyline of love and adventure this movie transcends the usual weekend fair with wit and unmitigated charm.'
+    result = predict_fn(input_data, model)
+    print(result)
 
 #
 # def test_predict():
