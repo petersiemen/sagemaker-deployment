@@ -92,6 +92,5 @@ def predict_fn(input_data, model):
     # convert output probabilities to predicted class (0 or 1)
     pred = torch.round(output)
 
-    result = pred
-
+    result = pred.numpy()
     return result
