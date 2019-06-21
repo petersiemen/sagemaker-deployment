@@ -18,6 +18,15 @@ Resources:
       CodeUri: src/
       Handler: sentiment_analysis_func.lambda_handler
       Runtime: python3.6
+      #Role: !GetAtt 'LambdaExecutionRole.Arn'
+      Policies:
+        - AWSLambdaExecute # Managed Policy
+        - Version: '2012-10-17' # Policy Document
+          Statement:
+            - Effect: Allow
+              Action:
+                - sagemaker:InvokeEndpoint
+              Resource: '*'
       Events:
         HelloWorld:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
@@ -25,17 +34,20 @@ Resources:
             Path: /sentiment
             Method: post
 
+#
+#  LambdaExecutionRole:
+#    Type: "AWS::IAM::Role"
+#    Properties:
+#      RoleName: lambda-execution-role
+#      AssumeRolePolicyDocument:
+#        Statement:
+#          - Effect: "Allow"
+#            Principal:
+#              Service:
+#                - "sagemaker.amazonaws.com"
+#            Action:
+#              - "sts:AssumeRole"
+#      ManagedPolicyArns:
+#        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 
-#Outputs:
-#  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-#  # Find out more about other implicit resources you can reference within SAM
-#  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-#  SentimentAnalysisFunctionApi:
-#    Description: "API Gateway endpoint URL for Prod stage for Sentiment Analysis function"
-#    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/sentiment/"
-#  SentimentAnalysisFunction:
-#    Description: "Sentiment Analysis Lambda Function ARN"
-#    Value: !GetAtt HelloWorldFunction.Arn
-#  SentimentAnalysisFunctionIamRole:
-#    Description: "Implicit IAM Role created for Sentiment Analysis function"
-#    Value: !GetAtt SentimentAnalysisFunctionRole.Arn
+
